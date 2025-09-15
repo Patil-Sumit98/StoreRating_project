@@ -1,0 +1,89 @@
+###
+### API TESTING WORKFLOW (PHASE 4)
+###
+
+### =================================================================
+### STEP 1: LOGIN to get all necessary tokens
+### =================================================================
+
+### A. Login as ADMIN user (david.smith@example.com)
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "david.smith@example.com",
+  "password": "password123"
+}
+
+### B. Login as NORMAL user (jane.doe@example.com)
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "jane.doe@example.com",
+  "password": "password123"
+}
+
+### C. Login as OWNER user (owner@example.com)
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "owner@example.com",
+  "password": "password123"
+}
+
+
+### =================================================================
+### STEP 2: DEFINE YOUR VARIABLES
+### =================================================================
+
+@adminToken =sZ@ownerToken =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzU3ODg0NjIyLCJleHAiOjE3NTc4ODgyMjJ9.HGkJu5asBdiO0uzEkjUAvm0YWhoW-KyZLYBWxH3Y_nk
+@storeId = 1
+
+@userToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6IlVTRVIiLCJpYXQiOjE3NTc4NjYyMTQsImV4cCI6MTc1Nzg2OTgxNH0.GoK4MG8r0RCsxi1HJ4EU877HYbtrlHLv9GbV63rtbVE
+
+
+### =================================================================
+### STEP 3: ADMIN ENDPOINT TESTS
+### =================================================================
+
+### A. Get application statistics
+GET http://localhost:5000/api/admin/stats
+Authorization: Bearer {{adminToken}}
+
+### B. Get all users (no filter)
+GET http://localhost:5000/api/admin/users
+Authorization: Bearer {{adminToken}}
+
+### C. Get only ADMIN users (testing filter)
+GET http://localhost:5000/api/admin/users?role=ADMIN
+Authorization: Bearer {{adminToken}}
+
+
+### =================================================================
+### STEP 4: OWNER ENDPOINT TEST
+### =================================================================
+
+### Get the dashboard for the logged-in owner
+GET http://localhost:5000/api/owner/dashboard
+Authorization: Bearer {{ownerToken}}
+
+### ADMIN - Create a new store
+POST http://localhost:5000/api/stores
+Content-Type: application/json
+Authorization: Bearer {{adminToken}}
+
+{
+  "name": "The Sunny Bookstore",
+  "email": "contact@sunnybooks.com",
+  "address": "123 Reading Lane"
+}
+
+### ADMIN TEST: Get application statistics
+GET http://localhost:5000/api/admin/stats
+Authorization: Bearer {{adminToken}}
+
+### ADMIN TEST: Get all users
+GET http://localhost:5000/api/admin/users
+Authorization: Bearer {{adminToken}}
