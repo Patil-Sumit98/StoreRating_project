@@ -1,107 +1,74 @@
-Store Rater - Full-Stack PERN Application
-Store Rater is a complete full-stack web application built with the PERN (PostgreSQL, Express.js, React.js, Node.js) stack. It allows users to browse, rate, and review local stores. The application features a robust role-based access control system, providing different functionalities for regular users, store owners, and system administrators.
+Store Rating System: A Full-Stack PERN Application
+Project Overview
+The Store Rating System is a comprehensive, full-stack web application developed utilizing the PERN (PostgreSQL, Express.js, React, Node.js) architecture. The platform is designed to facilitate the rating and reviewing of commercial establishments, incorporating a sophisticated role-based access control (RBAC) system. This system provides distinct functionalities and permissions for three user archetypes: general users, registered store owners, and system administrators, thereby creating a secure and structured multi-user environment.
 
-✨ Key Features
-Complete User Authentication: Secure user registration and login system using JWT (JSON Web Tokens) and password hashing with bcrypt.
+Technology Stack
+The application's architecture is founded upon a modern and robust selection of technologies designed for scalability and maintainability.
 
-Role-Based Access Control:
+Category
 
-Normal Users: Can browse stores, submit ratings, and update their own ratings.
+Technology
 
-Store Owners: Can view a special dashboard for their assigned store, including its average rating and a list of all users who have rated it.
+Implementation Details
 
-Administrators: Have access to a comprehensive dashboard with application statistics (total users, stores, ratings), a sortable list of all users, and the ability to add new stores and manage user roles.
+Backend Framework
 
-Store & Rating Management:
+Node.js, Express.js
 
-Admins can add new stores to the system.
+Constructs the RESTful API, managing all business logic and server-side operations.
 
-Admins can assign users as store owners.
+Database System
 
-Users can submit and update 1-5 star ratings for any store.
+PostgreSQL
 
-Dynamic Data:
+Serves as the relational database for persistent storage of all application data.
 
-Store lists automatically calculate and display the average rating and total rating count.
+Frontend Library
 
-Real-time updates to ratings are reflected immediately.
+React.js
 
-Polished User Experience:
+Drives the client-side user interface, enabling a dynamic and responsive single-page application (SPA) experience.
 
-Interactive sorting on data tables (Admin's user list) and store lists (by name, date, or rating).
+Authentication
 
-A clean, modern, and fully responsive UI that works seamlessly on desktop and mobile devices.
+JWT, bcrypt.js
 
-Secure password update functionality for all logged-in users.
+Implements secure user authentication, session management via JSON Web Tokens, and password hashing.
 
-🛠️ Tech Stack
-Backend:
+Client-Side Routing
 
-Node.js: JavaScript runtime environment.
+React Router
 
-Express.js: Web framework for Node.js.
+Manages navigation and view rendering within the client-side application.
 
-PostgreSQL: Powerful, open-source relational database.
+HTTP Client
 
-node-postgres (pg): PostgreSQL client for Node.js.
+Axios
 
-jsonwebtoken & bcryptjs: For authentication and security.
+Facilitates asynchronous communication between the frontend client and the backend API.
 
-Frontend:
-
-React.js: JavaScript library for building user interfaces.
-
-React Router: For client-side routing and navigation.
-
-Axios: For making API requests to the backend.
-
-jwt-decode: For safely decoding JWTs on the client side.
-
-Development:
-
-nodemon: For automatic server restarts during development.
-
-📂 Project Structure
-The project is organized into two main directories:
-
-/backend: Contains the Express.js server, API routes, database connection, and middleware.
-
-/frontend: Contains the React.js client application, components, and pages.
-
-🚀 Getting Started
-Follow these instructions to set up and run the project on your local machine.
+Local Development Environment Setup
+To deploy the application on a local machine for development or testing purposes, the following steps must be executed in sequence.
 
 Prerequisites
-Node.js (v18 or later recommended)
+Node.js (version 18.x or later is recommended)
 
-npm (comes with Node.js)
+An active installation of PostgreSQL
 
-PostgreSQL installed and running on your machine.
+1. Repository Cloning and Initial Installation
+Begin by cloning the source code repository to your local machine and navigating into the newly created project directory.
 
-1. Backend Setup
-First, set up and run the backend server.
+git clone [Your-Repo-URL]
+cd [Your-Repo-Folder]
 
-Navigate to the backend directory:
+2. Backend Configuration
+The backend server requires the installation of its dependencies and configuration of the database connection.
 
 cd backend
-
-Install dependencies:
-
 npm install
 
-Create the database:
-
-Connect to your local PostgreSQL instance (e.g., using psql -U postgres).
-
-Run the command:
-
-CREATE DATABASE store_rater;
-
-Set up environment variables:
-
-In the /backend folder, create a new file named .env.
-
-Copy the contents of .env.example (if provided) or add the following, replacing the values with your PostgreSQL credentials:
+3. Database Initialization
+A PostgreSQL database must be created and configured. A .env file must be created within the /backend directory to store the database credentials and application secrets, formatted as follows:
 
 DB_USER=your_postgres_username
 DB_PASSWORD=your_postgres_password
@@ -110,56 +77,80 @@ DB_PORT=5432
 DB_DATABASE=store_rater
 JWT_SECRET=thisisareallylongandsecretstringforjwt123!
 
-Create the database tables:
-
-The schema is defined in backend/database.sql.
-
-Run this script against your newly created store_rater database using a tool like psql:
+4. Schema Migration
+The database tables are defined in the database.sql script. Execute this script to migrate the schema to the store_rater database.
 
 psql -U your_postgres_username -d store_rater -f database.sql
 
-Run the backend server:
+5. Backend Server Execution
+Launch the backend server, which will operate on http://localhost:5000.
 
 npm run dev
 
-The server should now be running on http://localhost:5000.
-
-2. Frontend Setup
-Next, set up and run the React application in a separate terminal.
-
-Navigate to the frontend project directory:
+6. Frontend Configuration
+In a separate terminal, navigate to the frontend application's directory and install its dependencies.
 
 cd frontend/store-rater-frontend
-
-Install dependencies:
-
 npm install
-
-Run the frontend application:
-
 npm start
 
-A new browser tab should automatically open to http://localhost:3000.
+7. Application Access
+Upon successful compilation, the frontend application will be accessible via a web browser at http://localhost:3000. New users can be registered through the user interface to begin interacting with the system.
 
-🧑‍💻 Usage & Test Credentials
-The application is now fully running. To test the different user roles, you can register new users or use the following pre-configured roles after running the setup.
+Core Functionality and Features
+The application's feature set is segmented based on user roles to ensure appropriate data access and permissions.
 
-Admin User:
+Regular User Capabilities
+Secure registration and authentication utilizing JSON Web Tokens.
 
-Email: david.smith@example.com
+Ability to browse and sort the complete catalog of stores by various criteria, including name, creation date, or average rating.
 
-Password: password123
+Access to detailed, read-only pages for individual stores.
 
-(Note: You must manually promote this user to ADMIN in the database as per the project instructions).
+Functionality to submit and subsequently update personal 1-5 star ratings.
 
-Store Owner:
+A private settings page for secure password management.
 
-Email: owner@example.com
+Store Owner Capabilities
+Access to a private dashboard dedicated to their assigned commercial establishment.
 
-Password: password123
+Real-time tracking of the store's aggregate average rating.
 
-(Note: You must first create this user and then assign them to a store via the database).
+A detailed manifest of all users who have submitted a rating for their store.
 
-Normal User:
+Inheritance of all permissions granted to Regular Users.
 
-You can register any new user through the "Sign Up" page.
+Administrator Capabilities
+Access to a comprehensive administrative dashboard presenting platform-wide analytics, including total user, store, and rating counts.
+
+Full management of the user roster, including the ability to view, sort, and modify user roles (e.g., promoting a USER to an OWNER).
+
+Authority to add new stores to the system and assign ownership to a registered user during the creation process.
+
+Database Schema
+The application's data architecture is structured around three primary relational tables:
+
+users: This table contains all user account information, critically including the role (USER, OWNER, ADMIN) that governs their permissions.
+
+stores: This table houses all information pertinent to the commercial establishments, including an optional owner_id foreign key that links to the users table.
+
+ratings: This join table establishes a many-to-many relationship between users and stores, storing the rating value and enforcing a unique constraint to ensure a user may only rate a given store once.
+
+API Endpoint Specification
+# Authentication
+POST /api/auth/register     - Facilitates the registration of a new user.
+POST /api/auth/login        - Authenticates an existing user and returns a JWT.
+PUT  /api/auth/updatepassword - Allows an authenticated user to update their password.
+
+# Stores & Ratings
+GET    /api/stores          - Retrieves a comprehensive list of all stores, with support for sorting.
+GET    /api/stores/:id      - Retrieves detailed information for a single store.
+POST   /api/stores          - [Admin] Enables the creation of a new store.
+POST   /api/stores/:id/ratings - [User] Allows submission of a new rating.
+PUT    /api/stores/:id/ratings - [User] Allows an existing rating to be updated.
+
+# Role-Specific Endpoints
+GET /api/admin/stats        - [Admin] Retrieves application-wide statistics.
+GET /api/admin/users        - [Admin] Retrieves a list of all users.
+PUT /api/admin/users/:id    - [Admin] Modifies a specific user's role.
+GET /api/owner/dashboard    - [Owner] Retrieves dashboard data for the authenticated owner's store.
